@@ -1,0 +1,36 @@
+#!/usr/local/bin/ansible-playbook
+
+# Use like ./get-zones-from-servers-ansible.yml -i /path/to/my/inventory
+
+- name: "Get all firewalld zones from server"
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+    - name: Who am I?
+      become: false
+      local_action: command whoami
+      register: current_user
+
+    - name: Create local directory if needed
+      ansible.builtin.file:
+        path: ./zones
+        state: directory
+        owner: "{{ current_user.stdout }}"
+        group: "{{ current_user.stdout }}"
+      register: local_dir
+      delegate_to: localhost
+
+    - name: find files to copy
+      find:
+        paths: "/etc/firewalld/zones/"
+        recurse: no
+        patterns: "*.xml"
+      register: files_to_copy
+
+    - name: "Download zones from distant servers"
+      ansible.builtin.fetch:
+        src: "{{ item.path }}"
+        dest: ./zones/zones-{{ inventory_hostname }}/
+        flat: yes
+      with_items: "{{ files_to_copy.files }}"
