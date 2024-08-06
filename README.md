@@ -5,10 +5,10 @@ Rare usecase, I know, but I couldn't find an existing script that does that and 
 
 /!\ Warning: it's really bare-bones and covers a small portion of what is possible to make with firewalld. See "What it does not" section.
 
-## Requirements
+## Requirements
 - [xq](https://github.com/sibprogrammer/xq) which is used to parse the xml files.
 
-## Usage
+## Usage
 ```
 sudo ./firewall-cmd-dump.sh
 ```
@@ -17,13 +17,13 @@ Or by using stdout
 ```
 sudo ./firewall-cmd-dump.sh > /tmp/firewall-cmd-MyServer.sh
 ```
-### What it does
+### What it does
 - Parse `zone.xml` files from `/etc/firewalld/zones/`
 - Create cli commands to
   - Create new zones
   - Open Ports
   - Add Sources
-### What it does not
+### What it does not
 - Remove things (for example if you removed `ssh` from the `work` zone, it will not create the `--remove-service` command)
 - Other operations than the ones related to `port`, `sources` and `zones` (no `services`, no `ipsets`...)
 
