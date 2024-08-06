@@ -44,6 +44,12 @@ dump()
 			echo $FIREWALLD_BIN $FIREWALLD_ZONE'--add-source="'$address'"'
 		done
 
+		############## Services ##############
+		for service in $(xq $entry -x '/zone/service/@name')
+		do
+			echo $FIREWALLD_BIN $FIREWALLD_ZONE'--add-service="'$service'"'
+		done
+
 	done
 
 	echo $FIREWALLD_RELOAD

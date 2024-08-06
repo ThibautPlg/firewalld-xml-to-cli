@@ -20,12 +20,13 @@ sudo ./firewall-cmd-dump.sh > /tmp/firewall-cmd-MyServer.sh
 ### What it does
 - Parse `zone.xml` files from `/etc/firewalld/zones/`
 - Create cli commands to
-  - Create new zones
+  - Create new zones (ignore the default ones if exists)
   - Open Ports
+  - Open services
   - Add Sources
 ### What it does not
 - Remove things (for example if you removed `ssh` from the `work` zone, it will not create the `--remove-service` command)
-- Other operations than the ones related to `port`, `sources` and `zones` (no `services`, no `ipsets`...)
+- Other operations than the ones related to `port`, `sources`, `services` and `zones` (no `policies`, no `ipsets`...)
 
 ## Output example
 `cat /tmp/firewall-cmd-MyServer.sh`
