@@ -32,7 +32,7 @@ sudo ./firewall-cmd-dump.sh > /tmp/firewall-cmd-MyServer.sh
 ```
 #Create an executable file by using stdout. "sudo ./firewall-cmd-dump.sh > /tmp/firewall-cmd-MyServer.sh"
 
-#__________ zone internal-ssh __________#
+#__________ zone internal-bastion __________#
 sudo firewall-cmd --permanent --new-zone="internal-bastion"
 sudo firewall-cmd --permanent --zone="internal-bastion" --add-port="22/tcp"
 sudo firewall-cmd --permanent --zone="internal-bastion" --add-source="10.0.0.210"
